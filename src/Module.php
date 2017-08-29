@@ -40,7 +40,7 @@ class Module
             'view_manager'       => $provider->getViewManagerConfig(),
         ];
     }
-    
+
     public function handleError(MvcEvent $e)
     {
         $exception = $e->getParam('exception');

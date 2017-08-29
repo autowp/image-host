@@ -32,7 +32,7 @@ class ConfigProvider
             ]
         ];
     }
-    
+
     public function getControllerPluginsConfig(): array
     {
         return [
@@ -54,7 +54,7 @@ class ConfigProvider
             ]
         ];
     }
-    
+
     public function getRouterConfig(): array
     {
         return [
@@ -167,7 +167,7 @@ class ConfigProvider
             ]
         ];
     }
-    
+
     public function getInputFilterConfig(): array
     {
         return [
@@ -176,7 +176,7 @@ class ConfigProvider
             ]
         ];
     }
-    
+
     public function getInputFilterSpecsConfig(): array
     {
         return [
@@ -299,7 +299,7 @@ class ConfigProvider
                         [
                             'name'    => 'FileSize',
                             'options' => [
-                                'max'           => 50*1024*1024,
+                                'max'           => 50 * 1024 * 1024,
                                 'useByteString' => false
                             ]
                         ],
@@ -322,7 +322,7 @@ class ConfigProvider
             ],
         ];
     }
-    
+
     public function getValidatorsConfig(): array
     {
         return [
@@ -336,7 +336,7 @@ class ConfigProvider
             ]
         ];
     }
-    
+
     public function getLogConfig(): array
     {
         return [
@@ -358,7 +358,7 @@ class ConfigProvider
             ],
         ];
     }
-    
+
     public function getViewManagerConfig(): array
     {
         return [
@@ -382,7 +382,7 @@ class ConfigProvider
             ],
         ];
     }
-    
+
     public function getDbConfig(): array
     {
         return [
