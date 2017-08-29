@@ -1,0 +1,12 @@
+.buildpath
+.gitignore
+.project
+.settings
+.travis.yml
+cache/*
+docker-compose.yml
+Dockerfile
+logs
+mysql
+mysql.conf.d
+README.md

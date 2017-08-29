@@ -1,0 +1,54 @@
+{
+    "name": "autowp/image-host",
+    "description": "Image services for autowp.ru",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmitry Pereslegin",
+            "email": "dmitry@pereslegin.ru",
+            "homepage": "http://pereslegin.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0.12",
+        "ext-imagick": "*",
+        "ext-fileinfo": "*",
+        "zendframework/zend-mvc": "^3.1",
+        "autowp/image": "dev-master",
+        "zendframework/zend-inputfilter": "^2.7",
+        "zendframework/zend-validator": "^2.10",
+        "zendframework/zend-hydrator": "^2.2",
+        "zendframework/zend-log": "^2.9",
+        "zfcampus/zf-api-problem": "^1.2@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Autowp\\ImageHost\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/PHPUnit": "^6.0",
+        "satooshi/php-coveralls": "^1.0",
+        "codeclimate/php-test-reporter": "dev-master",
+        "zendframework/zend-coding-standard": "~1.0.0",
+        "phpmd/phpmd" : "^2.6",
+        "zendframework/zend-test": "^3.1@dev"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AutowpTest\\": "test/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@phpmd",
+            "@test"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "phpmd" : "phpmd src,test text ruleset.xml --suffixes php"
+    }
+}
