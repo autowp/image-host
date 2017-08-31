@@ -23,14 +23,14 @@ return [
             ],
             'foo' => [
                 'path' => $imageDir . "foo",
-                'url'  => 'http://' . $host . '/image/format/',
+                'url'  => 'http://' . $host . '/image/foo/',
                 'namingStrategy' => [
                     'strategy' => 'pattern'
                 ]
             ],
             'bar' => [
                 'path' => $imageDir . "bar",
-                'url'  => 'http://' . $host . '/image/museum/',
+                'url'  => 'http://' . $host . '/image/bar/',
                 'namingStrategy' => [
                     'strategy' => 'serial',
                     'options'  => [
