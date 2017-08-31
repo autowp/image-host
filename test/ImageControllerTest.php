@@ -12,6 +12,40 @@ class ImageControllerTest extends AbstractHttpControllerTestCase
 {
     protected $applicationConfigPath = __DIR__ . '/../config/application.config.php';
 
+    private function uploadImage(): int
+    {
+        $this->reset();
+
+        $filename = 'image.jpg';
+
+        $request = $this->getRequest();
+        $request->getHeaders()->addHeaderLine('Content-Type', 'multipart/form-data');
+
+        $file = tempnam(sys_get_temp_dir(), 'upl');
+        copy(__DIR__ . '/_files/' . $filename, $file);
+
+        $request->getFiles()->fromArray([
+            'file' => [
+                'tmp_name' => $file,
+                'name'     => $filename,
+                'error'    => UPLOAD_ERR_OK,
+                'type'     => 'image/jpeg'
+            ]
+        ]);
+        $this->dispatch('/api/image', Request::METHOD_POST, [
+            'dir' => 'bar'
+        ], true);
+
+        $this->assertResponseStatusCode(201);
+
+        $headers = $this->getResponse()->getHeaders();
+        $uri = $headers->get('Location')->uri();
+        $parts = explode('/', $uri->getPath());
+        $imageId = $parts[count($parts) - 1];
+
+        return $imageId;
+    }
+
     public function testPostGetDelete()
     {
         /**
@@ -191,5 +225,160 @@ class ImageControllerTest extends AbstractHttpControllerTestCase
         $json = Json::decode($this->getResponse()->getContent(), Json::TYPE_ARRAY);
 
         $this->assertContains('second_image_name_s_()', $json['src']);
+    }
+
+    public function testGetListByScalar()
+    {
+        $filename = 'image.jpg';
+        $srcFile = __DIR__ . '/_files/' . $filename;
+
+        $request = $this->getRequest();
+        $request->getHeaders()->addHeaderLine('Content-Type', 'multipart/form-data');
+
+        $file = tempnam(sys_get_temp_dir(), 'upl');
+        copy($srcFile, $file);
+
+        $request->getFiles()->fromArray([
+            'file' => [
+                'tmp_name' => $file,
+                'name'     => $filename,
+                'error'    => UPLOAD_ERR_OK,
+                'type'     => 'image/jpeg'
+            ]
+        ]);
+        $this->dispatch('/api/image', Request::METHOD_POST, [
+            'dir' => 'bar'
+        ], true);
+
+
+        $this->assertResponseStatusCode(201);
+
+        $headers = $this->getResponse()->getHeaders();
+        $uri = $headers->get('Location')->uri();
+        $parts = explode('/', $uri->getPath());
+        $imageId = $parts[count($parts) - 1];
+
+        // get list
+        $this->reset();
+
+        $this->dispatch('/api/image', Request::METHOD_GET, [
+            'id' => $imageId
+        ]);
+
+        $this->assertResponseStatusCode(200);
+        $this->assertControllerName(ImageController::class);
+        $this->assertMatchedRouteName('api/image/get');
+        $this->assertActionName('index');
+
+        $json = Json::decode($this->getResponse()->getContent(), Json::TYPE_ARRAY);
+
+        $this->assertCount(1, $json['items']);
+
+        $this->assertEquals(filesize($srcFile), $json['items'][0]['filesize']);
+    }
+
+    public function testUploadWithoutFile()
+    {
+        $filename = 'image.jpg';
+        $srcFile = __DIR__ . '/_files/' . $filename;
+
+        $request = $this->getRequest();
+        $request->getHeaders()->addHeaderLine('Content-Type', 'multipart/form-data');
+
+        $file = tempnam(sys_get_temp_dir(), 'upl');
+        copy($srcFile, $file);
+
+        $this->dispatch('/api/image', Request::METHOD_POST, [
+            'dir' => 'bar'
+        ], true);
+
+        $this->assertResponseStatusCode(400);
+    }
+
+    public function testUploadContentType()
+    {
+        $filename = 'text.txt';
+        $srcFile = __DIR__ . '/_files/' . $filename;
+
+        $request = $this->getRequest();
+        $request->getHeaders()->addHeaderLine('Content-Type', 'multipart/form-data');
+
+        $file = tempnam(sys_get_temp_dir(), 'upl');
+        copy($srcFile, $file);
+
+        $request->getFiles()->fromArray([
+            'file' => [
+                'tmp_name' => $file,
+                'name'     => 'image.jpg',
+                'error'    => UPLOAD_ERR_OK,
+                'type'     => 'image/jpeg'
+            ]
+        ]);
+        $this->dispatch('/api/image', Request::METHOD_POST, [
+            'dir' => 'bar'
+        ], true);
+
+        $this->assertResponseStatusCode(400);
+    }
+
+    public function testTooLongName()
+    {
+        $filename = 'image.jpg';
+
+        $request = $this->getRequest();
+        $request->getHeaders()->addHeaderLine('Content-Type', 'multipart/form-data');
+
+        $file = tempnam(sys_get_temp_dir(), 'upl');
+        copy(__DIR__ . '/_files/' . $filename, $file);
+
+        $request->getFiles()->fromArray([
+            'file' => [
+                'tmp_name' => $file,
+                'name'     => $filename,
+                'error'    => UPLOAD_ERR_OK,
+                'type'     => 'image/jpeg'
+            ]
+        ]);
+        $this->dispatch('/api/image', Request::METHOD_POST, [
+            'dir' => 'bar',
+            'name' => str_repeat('x', 500)
+        ], true);
+
+        $this->assertResponseStatusCode(400);
+
+        $imageId = $this->uploadImage();
+
+        $this->reset();
+
+        $this->dispatch('/api/image/' . $imageId, Request::METHOD_PUT, [
+            'name' => str_repeat('x', 500)
+        ]);
+
+        $this->assertResponseStatusCode(400);
+    }
+
+    public function testInvalidDir()
+    {
+        $filename = 'image.jpg';
+
+        $request = $this->getRequest();
+        $request->getHeaders()->addHeaderLine('Content-Type', 'multipart/form-data');
+
+        $file = tempnam(sys_get_temp_dir(), 'upl');
+        copy(__DIR__ . '/_files/' . $filename, $file);
+
+        $request->getFiles()->fromArray([
+            'file' => [
+                'tmp_name' => $file,
+                'name'     => $filename,
+                'error'    => UPLOAD_ERR_OK,
+                'type'     => 'image/jpeg'
+            ]
+        ]);
+        $this->dispatch('/api/image', Request::METHOD_POST, [
+            'dir' => 'omega'
+        ], true);
+
+        $this->assertResponseStatusCode(400);
     }
 }

@@ -12,8 +12,10 @@ class FormatControllerTest extends AbstractHttpControllerTestCase
 {
     protected $applicationConfigPath = __DIR__ . '/../config/application.config.php';
 
-    public function testGet()
+    private function uploadImage(): int
     {
+        $this->reset();
+
         /**
          * @var \Zend\Http\PhpEnvironment\Request $request
          */
@@ -36,7 +38,6 @@ class FormatControllerTest extends AbstractHttpControllerTestCase
             'dir' => 'foo'
         ], true);
 
-
         $this->assertResponseStatusCode(201);
 
 
@@ -45,6 +46,12 @@ class FormatControllerTest extends AbstractHttpControllerTestCase
         $parts = explode('/', $uri->getPath());
         $imageId = $parts[count($parts) - 1];
 
+        return $imageId;
+    }
+
+    public function testGet()
+    {
+        $imageId = $this->uploadImage();
 
         // get formated image
         $this->reset();
@@ -81,5 +88,19 @@ class FormatControllerTest extends AbstractHttpControllerTestCase
         $this->assertControllerName(FormatController::class);
         $this->assertMatchedRouteName('api/format/delete');
         $this->assertActionName('delete');
+    }
+
+    public function testInvalidFormat()
+    {
+        $imageId = $this->uploadImage();
+
+        $this->reset();
+
+        $this->dispatch('/api/format', Request::METHOD_GET, [
+            'id'     => $imageId,
+            'format' => 'delta'
+        ]);
+
+        $this->assertResponseStatusCode(400);
     }
 }

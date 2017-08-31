@@ -256,6 +256,15 @@ class ConfigProvider
                     'required' => false,
                     'filters'  => [
                         ['name' => 'StringTrim']
+                    ],
+                    'validators' => [
+                        [
+                            'name' => 'StringLength',
+                            'options' => [
+                                'max' => 255
+                            ]
+                        ],
+                        ['name' => 'ImageHostDir'],
                     ]
                 ],
                 'flop' => [
@@ -291,26 +300,43 @@ class ConfigProvider
                     'required' => false,
                     'filters'  => [
                         ['name' => 'StringTrim']
+                    ],
+                    'validators' => [
+                        [
+                            'name' => 'StringLength',
+                            'options' => [
+                                'max' => 255
+                            ]
+                        ],
+                        ['name' => 'ImageHostDir'],
                     ]
                 ],
                 'file' => [
                     'required' => true,
                     'validators' => [
-                        [
+                        'upload' => [
+                            'name' => 'FileUploadFile',
+                            'break_chain_on_failure' => true
+                        ],
+                        'size' => [
                             'name'    => 'FileSize',
                             'options' => [
                                 'max'           => 50 * 1024 * 1024,
                                 'useByteString' => false
-                            ]
+                            ],
+                            'break_chain_on_failure' => true
                         ],
-                        ['name' => 'FileIsImage'],
-                        [
+                        'extenstion' => [
                             'name' => 'FileExtension',
                             'options' => [
                                 'extension' => 'jpg,jpeg,jpe,png,gif,bmp'
                             ]
                         ],
-                        [
+                        'isimage' => [
+                            'name' => 'FileIsImage',
+                            'break_chain_on_failure' => true
+                        ],
+                        'imagesize' => [
                             'name' => 'FileImageSize',
                             'options' => [
                                 'maxWidth'  => 4096,

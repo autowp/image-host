@@ -51,5 +51,18 @@ return [
                 'strip'      => 1
             ]
         ]
+    ],
+
+    'input_filter_specs' => [
+        'ih_api_image_post' => [
+            'file' => [
+                'required' => true,
+                'validators' => [
+                    'upload' => [ // change validator for PhpUnit
+                        'name' => 'NotEmpty'
+                    ]
+                ]
+            ]
+        ]
     ]
 ];
