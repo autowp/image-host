@@ -182,7 +182,6 @@ class ImageControllerTest extends AbstractHttpControllerTestCase
             'dir'  => 'foo'
         ], true);
 
-
         $this->assertResponseStatusCode(201);
         $this->assertControllerName(ImageController::class);
         $this->assertMatchedRouteName('api/image/post');

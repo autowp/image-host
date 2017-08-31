@@ -264,7 +264,6 @@ class ConfigProvider
                                 'max' => 255
                             ]
                         ],
-                        ['name' => 'ImageHostDir'],
                     ]
                 ],
                 'flop' => [
@@ -308,7 +307,6 @@ class ConfigProvider
                                 'max' => 255
                             ]
                         ],
-                        ['name' => 'ImageHostDir'],
                     ]
                 ],
                 'file' => [
