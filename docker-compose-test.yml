@@ -3,6 +3,8 @@ web:
   container_name: autowp_imagehost_test_web
   environment:
     IMAGE_HOST_HOST: localhost
+  volumes:
+  - ./test/_files/local.php:/app/config/autoload/local.php:ro
   ports:
   - "80:80"
   restart: always
