@@ -28,6 +28,6 @@ mysql:
   volumes:
   - "./mysql:/var/lib/mysql:rw"
   - "./mysql.conf.d:/etc/mysql/conf.d:ro"
-  - "./test/_files/dump.sql:/docker-entrypoint-initdb.d:ro"
+  - "./test/_files/dump.sql:/docker-entrypoint-initdb.d/dump.sql:ro"
   expose:
   - "3306"
