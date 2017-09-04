@@ -23,9 +23,11 @@ mysql:
   image: mysql
   restart: always
   environment:
-  - "MYSQL_ROOT_PASSWORD=password"
+  - MYSQL_DATABASE: "image_host"
+  - MYSQL_ROOT_PASSWORD: "password"
   volumes:
-  - "./mysql:/var/lib/mysql"
-  - "./mysql.conf.d:/etc/mysql/conf.d"
+  - "./mysql:/var/lib/mysql:rw"
+  - "./mysql.conf.d:/etc/mysql/conf.d:ro"
+  - "./test/_files/dump.sql:/docker-entrypoint-initdb.d:ro"
   expose:
   - "3306"
