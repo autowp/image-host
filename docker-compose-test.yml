@@ -32,5 +32,8 @@ mysql:
   environment:
   - MYSQL_DATABASE: "image_host"
   - MYSQL_ROOT_PASSWORD: "password"
+  volumes:
+  - "./mysql.conf.d:/etc/mysql/conf.d:ro"
+  - "./test/_files/dump.sql:/docker-entrypoint-initdb.d:ro"
   expose:
   - "3306"
