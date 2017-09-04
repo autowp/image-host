@@ -23,8 +23,8 @@ mysql:
   image: mysql
   restart: always
   environment:
-  - MYSQL_DATABASE: "image_host"
-  - MYSQL_ROOT_PASSWORD: "password"
+    MYSQL_DATABASE: image_host
+    MYSQL_ROOT_PASSWORD: password
   volumes:
   - "./mysql:/var/lib/mysql:rw"
   - "./mysql.conf.d:/etc/mysql/conf.d:ro"
