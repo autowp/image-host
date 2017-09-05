@@ -49,6 +49,18 @@ class FormatControllerTest extends AbstractHttpControllerTestCase
         return $imageId;
     }
 
+    public function testNotFoundImage()
+    {
+        $this->dispatch('/api/format', Request::METHOD_GET, [
+            'id' => 9999999
+        ]);
+
+        $this->assertResponseStatusCode(404);
+        $this->assertControllerName(FormatController::class);
+        $this->assertMatchedRouteName('api/format/get');
+        $this->assertActionName('index');
+    }
+
     public function testGet()
     {
         $imageId = $this->uploadImage();

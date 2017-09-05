@@ -52,7 +52,7 @@ class FormatController extends AbstractRestfulController
 
         $result = [];
         foreach ($this->storage->getFormatedImages($id, $data['format']) as $image) {
-            $result[] = $image->toArray();
+            $result[] = $image ? $image->toArray() : null;
         }
 
         return new JsonModel([
