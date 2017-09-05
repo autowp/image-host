@@ -151,6 +151,10 @@ class ImageController extends AbstractRestfulController
 
         $image = $this->storage->getImage($id);
 
+        if (! $image) {
+            return $this->notFoundAction();
+        }
+
         $fields = $this->parseFields((string)$data['fields']);
 
         return new JsonModel(

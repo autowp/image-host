@@ -46,6 +46,18 @@ class ImageControllerTest extends AbstractHttpControllerTestCase
         return $imageId;
     }
 
+    public function testNotFoundImage()
+    {
+        $this->dispatch('/api/image/9999999', Request::METHOD_GET, [
+            'fields' => 'iptc,exif,resolution'
+        ]);
+
+        $this->assertResponseStatusCode(404);
+        $this->assertControllerName(ImageController::class);
+        $this->assertMatchedRouteName('api/image/item/get');
+        $this->assertActionName('get');
+    }
+
     public function testPostGetDelete()
     {
         /**
