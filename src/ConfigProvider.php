@@ -13,7 +13,6 @@ class ConfigProvider
             'controllers'        => $this->getControllersConfig(),
             'controller_plugins' => $this->getControllerPluginsConfig(),
             'db'                 => $this->getDbConfig(),
-            'dependencies'       => $this->getDependencyConfig(),
             'input_filters'      => $this->getInputFilterConfig(),
             'input_filter_specs' => $this->getInputFilterSpecsConfig(),
             'log'                => $this->getLogConfig(),
@@ -39,18 +38,6 @@ class ConfigProvider
             'invokables' => [
                 'inputFilterResponse' => Controller\Plugin\InputFilterResponse::class,
                 'inputResponse'       => Controller\Plugin\InputResponse::class
-            ]
-        ];
-    }
-
-    /**
-     * Return application-level dependency configuration.
-     */
-    public function getDependencyConfig(): array
-    {
-        return [
-            'factories' => [
-                Storage::class => Factory\ImageStorageFactory::class
             ]
         ];
     }

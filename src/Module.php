@@ -33,7 +33,6 @@ class Module
             'input_filters'      => $provider->getInputFilterConfig(),
             'input_filter_specs' => $provider->getInputFilterSpecsConfig(),
             'log'                => $provider->getLogConfig(),
-            'service_manager'    => $provider->getDependencyConfig(),
             'router'             => $provider->getRouterConfig(),
             'validators'         => $provider->getValidatorsConfig(),
             'view_manager'       => $provider->getViewManagerConfig(),
