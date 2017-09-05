@@ -30,6 +30,7 @@ RUN apk update && apk upgrade && \
         php7-opcache \
         php7-pdo \
         php7-pdo_mysql \
+        php7-pdo_pgsql \
         php7-phar \
         php7-simplexml \
         php7-tokenizer \
