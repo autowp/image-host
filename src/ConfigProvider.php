@@ -324,8 +324,8 @@ class ConfigProvider
                         'imagesize' => [
                             'name' => 'FileImageSize',
                             'options' => [
-                                'maxWidth'  => 1024*8,
-                                'maxHeight' => 1024*8
+                                'maxWidth'  => 1024 * 8,
+                                'maxHeight' => 1024 * 8
                             ]
                         ]
                     ]
