@@ -145,6 +145,24 @@ class ConfigProvider
                                                 ]
                                             ]
                                         ],
+                                        'file' => [
+                                            'type' => 'Literal',
+                                            'options' => [
+                                                'route' => '/file'
+                                            ],
+                                            'may_terminate' => false,
+                                            'child_routes' => [
+                                                'get' => [
+                                                    'type' => 'Method',
+                                                    'options' => [
+                                                        'verb' => 'get',
+                                                        'defaults' => [
+                                                            'action' => 'get-file'
+                                                        ]
+                                                    ]
+                                                ],
+                                            ]
+                                        ]
                                     ]
                                 ]
                             ]

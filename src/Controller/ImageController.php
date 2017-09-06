@@ -201,4 +201,27 @@ class ImageController extends AbstractRestfulController
 
         return $this->getResponse()->setStatusCode(200);
     }
+
+    /**
+     * @todo Improve file delivery with nginx
+     */
+    public function getFileAction()
+    {
+        $this->getInputFilter->setData($this->params()->fromQuery());
+
+        $id = (int)$this->params('id');
+
+        $result = $this->storage->getImageBlob($id);
+
+        if ($result === null) {
+            return $this->notFoundAction();
+        }
+
+        $response = $this->getResponse();
+
+        $response->setContent($result);
+        $response->getHeaders()->addHeaderLine('Content-Type', 'binary/octet-stream');
+
+        return $response;
+    }
 }
