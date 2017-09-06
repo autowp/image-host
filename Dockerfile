@@ -37,12 +37,9 @@ RUN apk update && apk upgrade && \
         php7-xml \
         php7-xmlwriter \
         php7-zlib \
-        py-pip \
-        python \
+        supervisor \
     && \
     apk add php7-xdebug --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
-    && \
-    pip install supervisor \
     && \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --quiet && \
