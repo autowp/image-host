@@ -311,12 +311,12 @@ class ConfigProvider
                             ],
                             'break_chain_on_failure' => true
                         ],
-                        'extenstion' => [
+                        /*'extenstion' => [
                             'name' => 'FileExtension',
                             'options' => [
                                 'extension' => 'jpg,jpeg,jpe,png,gif,bmp'
                             ]
-                        ],
+                        ],*/
                         'isimage' => [
                             'name' => 'FileIsImage',
                             'break_chain_on_failure' => true
@@ -324,8 +324,8 @@ class ConfigProvider
                         'imagesize' => [
                             'name' => 'FileImageSize',
                             'options' => [
-                                'maxWidth'  => 4096,
-                                'maxHeight' => 4096
+                                'maxWidth'  => 1024*8,
+                                'maxHeight' => 1024*8
                             ]
                         ]
                     ]
