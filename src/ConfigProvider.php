@@ -416,12 +416,13 @@ class ConfigProvider
     {
         return [
             'driver'    => 'Pdo',
-            'pdodriver' => 'mysql',
-            'host'      => 'mysql',
+            'pdodriver' => getenv('IMAGEHOST_DB_PDODRIVER') ?: 'mysql',
             'charset'   => 'utf8',
-            'dbname'    => 'image_host',
-            'username'  => 'root',
-            'password'  => 'password',
+            'host'      => getenv('IMAGEHOST_DB_HOST')      ?: 'mysql',
+            'port'      => getenv('IMAGEHOST_DB_PORT')      ?: 3306,
+            'username'  => getenv('IMAGEHOST_DB_USERNAME')  ?: 'root',
+            'password'  => getenv('IMAGEHOST_DB_PASSWORD')  ?: 'password',
+            'dbname'    => getenv('IMAGEHOST_DB_DBNAME')    ?: 'image_host'
         ];
     }
 }
