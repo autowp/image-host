@@ -4,7 +4,7 @@ namespace Application;
 
 $imageDir = __DIR__ . '/../../public/image/';
 
-$host = getenv('IMAGE_HOST_HOST');
+$host = getenv('IMAGEHOST_HOST');
 
 return [
     'imageStorage' => [

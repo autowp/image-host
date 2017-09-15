@@ -16,7 +16,13 @@ web:
     TRAVIS_COMMIT_RANGE: ${TRAVIS_COMMIT_RANGE}
     TRAVIS_EVENT_TYPE: ${TRAVIS_EVENT_TYPE}
     TRAVIS_TAG: ${TRAVIS_TAG}
-    IMAGE_HOST_HOST: localhost
+    IMAGEHOST_HOST: localhost
+    IMAGEHOST_DB_PDODRIVER: mysql
+    IMAGEHOST_DB_HOST: mysql
+    IMAGEHOST_DB_PORT: 3306
+    IMAGEHOST_DB_USERNAME: root
+    IMAGEHOST_DB_PASSWORD: password
+    IMAGEHOST_DB_DBNAME: image_host
   volumes:
   - ./test/_files/local.php:/app/config/autoload/local.php:ro
   ports:
