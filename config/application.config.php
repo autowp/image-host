@@ -29,7 +29,7 @@ return [
         ],
         
         'config_glob_paths' => [
-            __DIR__ . '/autoload/config.php',
+            __DIR__ . '/config.php',
         ],
 
         // Whether or not to enable a configuration cache.

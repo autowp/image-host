@@ -10,7 +10,7 @@ web:
     IMAGEHOST_DB_DBNAME: image_host
   volumes:
   - ./logs:/var/log:rw
-  - ./test/_files/local.php:/app/config/autoload/config.php:ro
+  - ./test/_files/local.php:/app/config/config.php:ro
   - ./config/application.config.php:/app/config/application.config.php:ro
   - ./view:/app/view:ro
   - ./test:/app/test:ro
